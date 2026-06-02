@@ -37,13 +37,6 @@
 
 body {
   background-color: var(--background);
-  background-image: linear-gradient(
-      var(--bg-overlay), 
-      var(--bg-overlay)
-    ), 
-    url('/vintage_flower_bg.png');
-  background-repeat: repeat;
-  background-size: 320px;
   color: var(--foreground);
   font-family: var(--font-outfit), sans-serif;
   transition: background-color 0.3s, color 0.3s;
