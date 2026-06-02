@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
+import { supabase } from "@/lib/supabase";
 
 export default function JualBarang() {
   const router = useRouter();
@@ -44,26 +45,18 @@ export default function JualBarang() {
     reader.readAsDataURL(file);
   };
 
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!thaharahConfirmed || !siddiqConfirmed) {
       alert("Mohon setujui komitmen thaharah dan keabsahan akad siddiq sebelum melanjutkan.");
       return;
     }
 
-    // Get existing products
-    let existingProducts = [];
-    const stored = localStorage.getItem("reloop_products_v3");
-    if (stored) {
-      try {
-        existingProducts = JSON.parse(stored);
-      } catch (err) {
-        console.error("Failed to parse stored products", err);
-      }
-    }
+    setIsSubmitting(true);
 
     const newProduct = {
-      id: Date.now(),
       name,
       category,
       price: parseInt(price),
@@ -79,11 +72,22 @@ export default function JualBarang() {
       image, // Base64 data URL
     };
 
-    const updatedProducts = [newProduct, ...existingProducts];
-    localStorage.setItem("reloop_products_v3", JSON.stringify(updatedProducts));
-
-    alert("Barang Anda berhasil diposting ke Katalog Syariah!");
-    router.push("/katalog");
+    try {
+      const { error } = await supabase.from('products').insert([newProduct]);
+      
+      if (error) {
+        console.error("Supabase insert error:", error);
+        alert("Gagal memposting barang ke database. Pastikan tabel 'products' sudah dibuat di Supabase.");
+      } else {
+        alert("Barang Anda berhasil diposting ke Katalog Syariah (Supabase)!");
+        router.push("/katalog");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Terjadi kesalahan jaringan saat memposting barang.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -295,9 +299,10 @@ export default function JualBarang() {
 
           <button
             type="submit"
-            className="w-full py-4 bg-accent text-accent-foreground font-semibold uppercase tracking-widest text-xs hover:bg-foreground hover:text-background transition-all duration-300 shadow-md shadow-accent/15"
+            disabled={isSubmitting}
+            className="w-full py-4 bg-accent text-accent-foreground font-semibold uppercase tracking-widest text-xs hover:bg-foreground hover:text-background transition-all duration-300 shadow-md shadow-accent/15 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Posting ke Katalog Syariah (Iklankan)
+            {isSubmitting ? "Mengunggah ke Supabase..." : "Posting ke Katalog Syariah (Iklankan)"}
           </button>
         </form>
       </div>

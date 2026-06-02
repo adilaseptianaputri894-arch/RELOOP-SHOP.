@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import { useCart } from "@/context/CartContext";
+import { supabase } from "@/lib/supabase";
 
 const DUMMY_PRODUCTS = [];
 
@@ -13,20 +14,26 @@ export default function Katalog() {
   const { addToCart } = useCart();
   const [addedToast, setAddedToast] = useState(false);
 
-  // Load products from localStorage or fall back to dummy data
+  // Fetch products from Supabase
   useEffect(() => {
-    const stored = localStorage.getItem("reloop_products_v3");
-    if (stored) {
+    const fetchProducts = async () => {
       try {
-        setProducts(JSON.parse(stored));
-      } catch (e) {
-        setProducts(DUMMY_PRODUCTS);
-        localStorage.setItem("reloop_products_v3", JSON.stringify(DUMMY_PRODUCTS));
+        const { data, error } = await supabase
+          .from('products')
+          .select('*')
+          .order('id', { ascending: false });
+          
+        if (error) {
+          console.error("Error fetching from Supabase:", error);
+        } else if (data) {
+          setProducts(data);
+        }
+      } catch (err) {
+        console.error("Network error fetching products:", err);
       }
-    } else {
-      setProducts(DUMMY_PRODUCTS);
-      localStorage.setItem("reloop_products_v3", JSON.stringify(DUMMY_PRODUCTS));
-    }
+    };
+
+    fetchProducts();
   }, []);
 
   const filteredProducts = activeCategory === "Semua"
@@ -39,12 +46,24 @@ export default function Katalog() {
     setTimeout(() => setAddedToast(false), 2000);
   };
 
-  const handleDeleteProduct = (productId) => {
-    if (window.confirm("Yakin ingin menghapus produk ini dari katalog?")) {
-      const updatedProducts = products.filter(p => p.id !== productId);
-      setProducts(updatedProducts);
-      localStorage.setItem("reloop_products_v3", JSON.stringify(updatedProducts));
-      setSelectedProduct(null);
+  const handleDeleteProduct = async (productId) => {
+    if (window.confirm("Yakin ingin menghapus produk ini secara permanen dari Supabase?")) {
+      try {
+        const { error } = await supabase
+          .from('products')
+          .delete()
+          .eq('id', productId);
+          
+        if (error) {
+          alert("Gagal menghapus dari database.");
+          console.error(error);
+        } else {
+          setProducts(products.filter(p => p.id !== productId));
+          setSelectedProduct(null);
+        }
+      } catch (err) {
+        console.error("Error deleting product:", err);
+      }
     }
   };
 
