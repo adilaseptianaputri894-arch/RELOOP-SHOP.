@@ -19,6 +19,8 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     await signOut();
+    localStorage.removeItem("reloop_admin_auth");
+    setIsAdmin(false);
     router.push("/");
   };
   
