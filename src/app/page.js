@@ -64,43 +64,6 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Featured Categories */}
-      <section className="px-6 md:px-8 py-16 max-w-7xl mx-auto border-t border-foreground/5">
-        <h3 className="text-center font-serif font-semibold text-3xl mb-12 text-foreground/90">
-          Kategori Populer
-        </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { name: "Jaket", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=400&auto=format&fit=crop" },
-            { name: "Dress", img: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=400&auto=format&fit=crop" },
-            { name: "Tas", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=400&auto=format&fit=crop" },
-            { name: "Sepatu", img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=400&auto=format&fit=crop" },
-            { name: "Kemeja", img: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=400&auto=format&fit=crop" },
-            { name: "Hijab", img: "https://images.unsplash.com/photo-1589363460779-cbdf1f38e6e8?q=80&w=400&auto=format&fit=crop" }
-          ].map((cat) => (
-            <a
-              key={cat.name}
-              href="/katalog"
-              className="group relative aspect-[4/5] border border-foreground/10 overflow-hidden rounded-sm hover:border-accent/40 transition-all duration-500 shadow-sm"
-            >
-              <img 
-                src={cat.img} 
-                alt={cat.name} 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-black/10 group-hover:via-background/25 transition-all duration-500 z-10" />
-              <div className="absolute bottom-6 left-6 right-6 z-20 flex flex-col items-center">
-                <span className="font-serif text-xl font-medium text-foreground group-hover:text-accent transition-colors">
-                  {cat.name}
-                </span>
-                <span className="text-[9px] uppercase tracking-widest text-foreground/60 mt-1 block">
-                  Lihat Koleksi →
-                </span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="border-t border-foreground/10 px-6 md:px-8 py-8 mt-12 bg-foreground/[0.01]">
