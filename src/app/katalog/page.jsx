@@ -8,7 +8,7 @@ const DUMMY_PRODUCTS = [];
 
 export default function Katalog() {
   const [products, setProducts] = useState([]);
-  const [activeCategory, setActiveCategory] = useState("Semua");
+  const [activeCategory, setActiveCategory] = useState("Hijab");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { addToCart } = useCart();
   const [addedToast, setAddedToast] = useState(false);
@@ -60,7 +60,7 @@ export default function Katalog() {
 
         {/* Filter bar */}
         <div className="flex flex-wrap gap-3 mb-10 justify-center">
-          {["Semua", "Hijab", "Kemeja", "Sepatu", "Tas", "Dress", "Rok", "Abaya"].map((cat) => (
+          {["Hijab", "Kemeja", "Sepatu", "Tas", "Dress", "Rok", "Abaya"].map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
