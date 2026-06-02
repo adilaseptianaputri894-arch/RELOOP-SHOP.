@@ -71,6 +71,10 @@ export default function Navbar() {
 
         <div className="w-[1px] h-6 bg-foreground/10 mx-1"></div>
 
+        <a href="/pesanan" title="Pesanan Saya" className="hover:text-accent transition-colors">
+          <Package size={20} strokeWidth={1.5} />
+        </a>
+
         <a href="/cart" title="Keranjang" className="hover:text-accent transition-colors relative">
           <ShoppingCart size={20} strokeWidth={1.5} />
           {cartCount > 0 && (
@@ -81,18 +85,13 @@ export default function Navbar() {
         </a>
 
         {user ? (
-          <>
-            <a href="/pesanan" title="Pesanan Saya" className="hover:text-accent transition-colors">
-              <Package size={20} strokeWidth={1.5} />
-            </a>
-            <button
-              onClick={handleLogout}
-              title="Keluar"
-              className="hover:text-accent transition-colors"
-            >
-              <LogOut size={20} strokeWidth={1.5} />
-            </button>
-          </>
+          <button
+            onClick={handleLogout}
+            title="Keluar"
+            className="hover:text-accent transition-colors"
+          >
+            <LogOut size={20} strokeWidth={1.5} />
+          </button>
         ) : (
           <a
             href="/login"
