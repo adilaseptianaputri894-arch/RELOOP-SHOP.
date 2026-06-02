@@ -10,7 +10,7 @@ export default function JualBarang() {
   // Form states
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("Jaket");
+  const [category, setCategory] = useState("Hijab");
   const [size, setSize] = useState("");
   const [condition, setCondition] = useState("Sangat Baik");
   const [era, setEra] = useState("Modern");
@@ -145,7 +145,7 @@ export default function JualBarang() {
                   onChange={(e) => setCategory(e.target.value)}
                   className="w-full bg-background border-b border-foreground/20 py-2 focus:outline-none focus:border-accent text-xs"
                 >
-                  {["Jaket", "Dress", "Celana", "Kaos", "Tas", "Sweater", "Kemeja"].map((cat) => (
+                  {["Hijab", "Kemeja", "Sepatu", "Tas", "Dress", "Rok", "Abaya"].map((cat) => (
                     <option key={cat} value={cat}>{cat}</option>
                   ))}
                 </select>
