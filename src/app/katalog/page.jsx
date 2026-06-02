@@ -57,22 +57,6 @@ export default function Katalog() {
           </p>
         </div>
 
-        {/* Filter bar */}
-        <div className="flex flex-wrap gap-3 mb-10 justify-center">
-          {["Semua", "Jaket", "Dress", "Tas", "Sepatu", "Kemeja", "Hijab"].map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 text-xs uppercase tracking-wider border transition-all duration-300 ${
-                activeCategory === cat
-                  ? "border-accent bg-accent text-accent-foreground shadow-sm"
-                  : "border-foreground/15 hover:border-accent hover:text-accent"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
 
         {/* Product grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
