@@ -15,17 +15,17 @@ export default function Katalog() {
 
   // Load products from localStorage or fall back to dummy data
   useEffect(() => {
-    const stored = localStorage.getItem("reloop_products");
+    const stored = localStorage.getItem("reloop_products_v2");
     if (stored) {
       try {
         setProducts(JSON.parse(stored));
       } catch (e) {
         setProducts(DUMMY_PRODUCTS);
-        localStorage.setItem("reloop_products", JSON.stringify(DUMMY_PRODUCTS));
+        localStorage.setItem("reloop_products_v2", JSON.stringify(DUMMY_PRODUCTS));
       }
     } else {
       setProducts(DUMMY_PRODUCTS);
-      localStorage.setItem("reloop_products", JSON.stringify(DUMMY_PRODUCTS));
+      localStorage.setItem("reloop_products_v2", JSON.stringify(DUMMY_PRODUCTS));
     }
   }, []);
 
