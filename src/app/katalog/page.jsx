@@ -39,6 +39,15 @@ export default function Katalog() {
     setTimeout(() => setAddedToast(false), 2000);
   };
 
+  const handleDeleteProduct = (productId) => {
+    if (window.confirm("Yakin ingin menghapus produk ini dari katalog?")) {
+      const updatedProducts = products.filter(p => p.id !== productId);
+      setProducts(updatedProducts);
+      localStorage.setItem("reloop_products_v3", JSON.stringify(updatedProducts));
+      setSelectedProduct(null);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       <Navbar />
@@ -256,12 +265,20 @@ export default function Katalog() {
                       Nego / Chat
                     </a>
                   </div>
-                  <button
-                    onClick={() => setSelectedProduct(null)}
-                    className="w-full py-2.5 border border-foreground/20 hover:border-foreground text-[10px] uppercase tracking-widest font-semibold transition-colors rounded-sm"
-                  >
-                    Batal
-                  </button>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setSelectedProduct(null)}
+                      className="flex-1 py-2.5 border border-foreground/20 hover:border-foreground text-[10px] uppercase tracking-widest font-semibold transition-colors rounded-sm"
+                    >
+                      Batal
+                    </button>
+                    <button
+                      onClick={() => handleDeleteProduct(selectedProduct.id)}
+                      className="flex-1 py-2.5 border border-red-900/30 text-red-700 hover:bg-red-900/10 text-[10px] uppercase tracking-widest font-bold transition-colors rounded-sm"
+                    >
+                      Hapus
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
