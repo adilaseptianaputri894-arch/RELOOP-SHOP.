@@ -37,7 +37,7 @@ export default function Home() {
 
         {/* Decorative Visual - Box cover */}
         <div className="flex-1 w-full relative group">
-          <div className="w-full aspect-[4/5] bg-black border border-foreground/10 flex items-center justify-center relative overflow-hidden rounded-sm shadow-xl transition-all duration-500 hover:border-accent/30">
+          <div className="w-full aspect-[4/5] bg-gradient-to-br from-[#5C4033] to-[#3B2F2F] border border-foreground/10 flex items-center justify-center relative overflow-hidden rounded-sm shadow-xl transition-all duration-500 hover:border-accent/30">
             <img 
               src="/reeloop-cover.png" 
               alt="REELOOP Minimal Logo" 
