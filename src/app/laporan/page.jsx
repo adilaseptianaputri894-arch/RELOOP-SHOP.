@@ -24,20 +24,28 @@ export default function LaporanKeuangan() {
   const totalPendapatan = orders.reduce((sum, order) => sum + order.total, 0);
   const totalPesananSukses = orders.length; // Assuming all recorded orders are success
   
+  const handleStatusChange = (orderId, newStatus) => {
+    const updatedOrders = orders.map(order => 
+      order.id === orderId ? { ...order, status: newStatus } : order
+    );
+    setOrders(updatedOrders);
+    localStorage.setItem("reloop_orders", JSON.stringify(updatedOrders));
+  };
+
   return (
     <AdminGate>
       <div className="min-h-screen bg-background text-foreground font-sans">
         <Navbar />
 
-        <div className="max-w-5xl mx-auto px-6 md:px-8 py-12">
+        <div className="max-w-6xl mx-auto px-6 md:px-8 py-12">
           <div className="mb-10 text-center">
             <div className="inline-flex items-center justify-center p-3 bg-accent/10 text-accent rounded-full mb-4">
               <BarChart3 size={28} />
             </div>
             <h1 className="text-3xl md:text-4xl font-serif font-semibold">
-              Laporan Keuangan
+              Laporan Keuangan & Pesanan
             </h1>
-            <p className="text-sm opacity-60 mt-2">Ringkasan transaksi dan pendapatan toko Reloop.</p>
+            <p className="text-sm opacity-60 mt-2">Ringkasan transaksi, pendapatan toko, dan status pengiriman.</p>
           </div>
 
           {/* Statistik Kartu */}
@@ -80,6 +88,7 @@ export default function LaporanKeuangan() {
                       <th className="px-6 py-4 font-semibold">ID / Waktu</th>
                       <th className="px-6 py-4 font-semibold">Pembeli</th>
                       <th className="px-6 py-4 font-semibold">Item</th>
+                      <th className="px-6 py-4 font-semibold">Status Pengiriman</th>
                       <th className="px-6 py-4 font-semibold text-right">Nominal</th>
                     </tr>
                   </thead>
@@ -92,15 +101,33 @@ export default function LaporanKeuangan() {
                         </td>
                         <td className="px-6 py-4">
                           <div className="font-medium">{order.buyer}</div>
+                          <div className="text-[10px] opacity-60 max-w-[150px] truncate" title={order.alamat}>{order.alamat}</div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="flex gap-1">
+                          <div className="flex gap-1 flex-wrap max-w-[200px]">
                             {order.items?.map((item, i) => (
                               <span key={i} className="px-2 py-0.5 bg-foreground/5 rounded-full text-[10px] truncate max-w-[120px]">
-                                {item.name}
+                                {item.name} ({item.qty})
                               </span>
                             ))}
                           </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <select
+                            value={order.status || "Dikemas"}
+                            onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                            className={`text-xs font-semibold px-2 py-1 rounded-sm border focus:outline-none 
+                              ${(order.status || "Dikemas") === "Dikemas" ? "bg-amber-100 text-amber-800 border-amber-200" : ""}
+                              ${order.status === "Dikirim" ? "bg-blue-100 text-blue-800 border-blue-200" : ""}
+                              ${order.status === "Selesai" ? "bg-green-100 text-green-800 border-green-200" : ""}
+                              ${order.status === "Batal" ? "bg-red-100 text-red-800 border-red-200" : ""}
+                            `}
+                          >
+                            <option value="Dikemas">📦 Dikemas</option>
+                            <option value="Dikirim">🚚 Dikirim</option>
+                            <option value="Selesai">✅ Selesai</option>
+                            <option value="Batal">❌ Batal</option>
+                          </select>
                         </td>
                         <td className="px-6 py-4 text-right font-serif font-bold text-accent">
                           Rp {order.total.toLocaleString("id-ID")}
