@@ -53,7 +53,7 @@ export default function JualBarang() {
 
     // Get existing products
     let existingProducts = [];
-    const stored = localStorage.getItem("reloop_products_v2");
+    const stored = localStorage.getItem("reloop_products_v3");
     if (stored) {
       try {
         existingProducts = JSON.parse(stored);
@@ -80,7 +80,7 @@ export default function JualBarang() {
     };
 
     const updatedProducts = [newProduct, ...existingProducts];
-    localStorage.setItem("reloop_products_v2", JSON.stringify(updatedProducts));
+    localStorage.setItem("reloop_products_v3", JSON.stringify(updatedProducts));
 
     alert("Barang Anda berhasil diposting ke Katalog Syariah!");
     router.push("/katalog");
