@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FDF8F7; /* Very soft rose-white */
-  --foreground: #3A1017; /* Very deep maroon-espresso */
-  --accent: #800020; /* Deep rich Maroon */
-  --accent-foreground: #ffffff;
-  --pink-light: #FBC5C5; /* Vintage rose pink */
-  --pink-gold: #E8A7A1; /* Warm vintage blush */
-  --card-bg: rgba(255, 255, 255, 0.85);
-  --bg-overlay: rgba(253, 248, 247, 0.90);
+  --background: #ffffff; /* White */
+  --foreground: #111111; /* Almost black */
+  --accent: #000000; /* Black */
+  --accent-foreground: #ffffff; /* White */
+  --pink-light: #e5e5e5; /* Light gray */
+  --pink-gold: #cccccc; /* Medium gray */
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --bg-overlay: rgba(255, 255, 255, 0.95);
 }
 
 @theme inline {
@@ -24,13 +24,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #1C090D; /* Dark burgundy black */
-    --foreground: #FADCDD; /* Rose-tinted cream */
-    --accent: #E05A71; /* Vivid vintage rose */
-    --pink-light: #5A1E27;
-    --pink-gold: #823541;
-    --card-bg: rgba(28, 9, 13, 0.85);
-    --bg-overlay: rgba(28, 9, 13, 0.92);
+    --background: #000000; /* Black */
+    --foreground: #f5f5f5; /* Light gray/white */
+    --accent: #ffffff; /* White */
+    --accent-foreground: #000000; /* Black */
+    --pink-light: #333333; /* Dark gray */
+    --pink-gold: #666666; /* Medium gray */
+    --card-bg: rgba(17, 17, 17, 0.85);
+    --bg-overlay: rgba(0, 0, 0, 0.92);
   }
 }
 
@@ -53,7 +54,7 @@ body {
 .vintage-card {
   background: var(--card-bg);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(128, 0, 32, 0.15);
-  box-shadow: 0 4px 20px rgba(128, 0, 32, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
