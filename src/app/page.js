@@ -39,8 +39,8 @@ export default function Home() {
         <div className="flex-1 w-full relative group">
           <div className="w-full aspect-[4/5] bg-foreground/5 border border-foreground/10 flex items-center justify-center relative overflow-hidden rounded-sm shadow-xl transition-all duration-500 hover:border-accent/30">
             <img 
-              src="/logo.png" 
-              alt="Vintage Boutique RELOOP Logo" 
+              src="/animated_cover.png" 
+              alt="Animated Clothing Cover" 
               className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 group-hover:scale-105"
             />
             
