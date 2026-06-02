@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FDF8F7; /* Very soft rose-white */
+  --foreground: #3A1017; /* Very deep maroon-espresso */
+  --accent: #800020; /* Deep rich Maroon */
+  --accent-foreground: #ffffff;
+  --pink-light: #FBC5C5; /* Vintage rose pink */
+  --pink-gold: #E8A7A1; /* Warm vintage blush */
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --bg-overlay: rgba(253, 248, 247, 0.90);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-pink-light: var(--pink-light);
+  --color-pink-gold: var(--pink-gold);
+  --font-sans: var(--font-outfit), sans-serif;
+  --font-serif: var(--font-cormorant), serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1C090D; /* Dark burgundy black */
+    --foreground: #FADCDD; /* Rose-tinted cream */
+    --accent: #E05A71; /* Vivid vintage rose */
+    --pink-light: #5A1E27;
+    --pink-gold: #823541;
+    --card-bg: rgba(28, 9, 13, 0.85);
+    --bg-overlay: rgba(28, 9, 13, 0.92);
+  }
+}
+
+body {
+  background-color: var(--background);
+  background-image: linear-gradient(
+      var(--bg-overlay), 
+      var(--bg-overlay)
+    ), 
+    url('/vintage_flower_bg.png');
+  background-repeat: repeat;
+  background-size: 320px;
+  color: var(--foreground);
+  font-family: var(--font-outfit), sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+  min-height: 100vh;
+}
+
+/* Glassmorphism details for premium vintage card look */
+.vintage-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(128, 0, 32, 0.15);
+  box-shadow: 0 4px 20px rgba(128, 0, 32, 0.05);
+}
+
