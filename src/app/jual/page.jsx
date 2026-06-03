@@ -103,7 +103,7 @@ export default function JualBarang() {
       
       if (error) {
         console.error("Supabase insert error:", error);
-        alert("Gagal memposting barang ke database. Pastikan tabel 'products' sudah dibuat di Supabase.");
+        alert(`Gagal memposting: ${error.message}`);
       } else {
         alert("Barang Anda berhasil diposting ke Katalog Syariah (Supabase)!");
         router.push("/katalog");
