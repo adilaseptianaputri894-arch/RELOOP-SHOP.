@@ -1,9 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 
-const envUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const envKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-const supabaseUrl = (envUrl && envUrl.length > 0) ? envUrl : 'https://placeholder.supabase.co';
-const supabaseAnonKey = (envKey && envKey.length > 0) ? envKey : 'placeholder_key';
+// Menggunakan hardcode URL dan Key agar tidak perlu repot setting Environment Variables di Vercel
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://znbncpcrovxyvggfbswa.supabase.co';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_DaT_H60XQkP9kW_J-zNj7Q_Y1YsR4pF';
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
