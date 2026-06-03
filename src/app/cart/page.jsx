@@ -15,6 +15,10 @@ export default function Cart() {
   const [akadAccepted, setAkadAccepted] = useState(false);
   const [invoiceDetails, setInvoiceDetails] = useState(null);
 
+  // Payment States
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+
   // Shipping Address States
   const [alamat, setAlamat] = useState("");
   const [kota, setKota] = useState("");
@@ -60,7 +64,17 @@ export default function Cart() {
       total: subtotal,
     });
 
-    setCheckoutStep(3);
+    setCheckoutStep(3); // Go to Payment Step
+  };
+
+  const handleConfirmPayment = () => {
+    if (!paymentMethod) return;
+    setIsProcessingPayment(true);
+    setTimeout(() => {
+      setIsProcessingPayment(false);
+      setInvoiceDetails(prev => ({ ...prev, payment: paymentMethod }));
+      setCheckoutStep(4);
+    }, 1500); // Simulasi loading pembayaran
   };
 
   const handleFinish = () => {
@@ -84,6 +98,7 @@ export default function Cart() {
     setProvinsi("");
     setKodePos("");
     setNoHp("");
+    setPaymentMethod("");
     setInvoiceDetails(null);
   };
 
@@ -230,10 +245,11 @@ export default function Cart() {
                 <h2 className="text-xl font-bold font-serif">
                   {checkoutStep === 1 && "1. Tinjau & Konfirmasi Cacat"}
                   {checkoutStep === 2 && "2. Akad Bai' Al-Musawamah"}
-                  {checkoutStep === 3 && "Sertifikat Akad Transaksi"}
+                  {checkoutStep === 3 && "3. Metode Pembayaran"}
+                  {checkoutStep === 4 && "Sertifikat Akad Transaksi"}
                 </h2>
               </div>
-              {checkoutStep !== 3 && (
+              {checkoutStep !== 4 && (
                 <button
                   onClick={() => setIsCheckoutOpen(false)}
                   className="text-accent-foreground/70 hover:text-accent-foreground text-lg p-1"
@@ -422,14 +438,70 @@ export default function Cart() {
                       disabled={!buyerName || !akadAccepted || !isAddressComplete}
                       className="flex-1 py-3 bg-accent text-accent-foreground text-xs uppercase tracking-wider font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed shadow-md"
                     >
-                      Selesaikan Akad & Bayar
+                      Selesaikan Akad & Pilih Pembayaran
                     </button>
                   </div>
                 </form>
               )}
 
-              {/* STEP 3: DIGITAL AKAD CERTIFICATE / INVOICE */}
-              {checkoutStep === 3 && invoiceDetails && (
+              {/* STEP 3: PEMBAYARAN */}
+              {checkoutStep === 3 && (
+                <div className="space-y-6 animate-fade-in">
+                  <p className="text-xs opacity-75 leading-relaxed text-center">
+                    Silakan pilih metode pembayaran untuk total <strong>Rp {subtotal.toLocaleString("id-ID")}</strong>.
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    {["BCA", "BSI (Bank Syariah)", "GoPay", "OVO", "QRIS"].map(method => (
+                      <button
+                        key={method}
+                        onClick={() => setPaymentMethod(method)}
+                        className={`p-3 text-xs font-semibold uppercase tracking-wider border rounded-sm transition-all ${paymentMethod === method ? "border-accent bg-accent/10 text-accent" : "border-foreground/20 hover:border-accent hover:text-accent opacity-70"}`}
+                      >
+                        {method}
+                      </button>
+                    ))}
+                  </div>
+
+                  {paymentMethod && (
+                    <div className="border border-accent/20 bg-accent/5 p-5 rounded-sm text-center space-y-3">
+                      <h4 className="text-[10px] uppercase tracking-widest opacity-60">Instruksi Pembayaran</h4>
+                      {paymentMethod === "QRIS" ? (
+                        <div className="mx-auto w-32 h-32 bg-white border border-foreground/10 flex items-center justify-center p-2">
+                          {/* Mock QR */}
+                          <div className="w-full h-full bg-foreground flex items-center justify-center text-background text-[10px] font-bold text-center">QRIS MOCK</div>
+                        </div>
+                      ) : (
+                        <div>
+                          <p className="text-sm font-bold font-serif">{paymentMethod}</p>
+                          <p className="text-lg tracking-[0.2em] font-mono mt-1 mb-2 bg-background inline-block px-3 py-1 border border-foreground/10 rounded-sm">1234 5678 9012</p>
+                          <p className="text-[10px] opacity-60">a.n. Reloop Thrift Syariah</p>
+                        </div>
+                      )}
+                      <p className="text-[10px] italic text-accent opacity-80 pt-2 border-t border-accent/10">Harap transfer sesuai nominal sebelum 1x24 jam.</p>
+                    </div>
+                  )}
+
+                  <div className="flex gap-4 pt-4">
+                    <button
+                      onClick={() => setCheckoutStep(2)}
+                      className="flex-1 py-3 border border-foreground/20 hover:border-foreground text-xs uppercase tracking-wider font-semibold transition-colors"
+                    >
+                      ← Kembali
+                    </button>
+                    <button
+                      disabled={!paymentMethod || isProcessingPayment}
+                      onClick={handleConfirmPayment}
+                      className="flex-1 py-3 bg-accent text-accent-foreground text-xs uppercase tracking-wider font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed shadow-md flex justify-center items-center"
+                    >
+                      {isProcessingPayment ? "Memproses..." : "Saya Sudah Bayar"}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP 4: DIGITAL AKAD CERTIFICATE / INVOICE */}
+              {checkoutStep === 4 && invoiceDetails && (
                 <div className="space-y-6">
                   {/* Certificate box */}
                   <div className="border-4 border-accent p-6 rounded-sm bg-background flex flex-col items-center justify-between text-center relative overflow-hidden shadow-lg">
@@ -465,8 +537,8 @@ export default function Cart() {
                         <strong className="text-xs text-green-700">Lunas / Sah</strong>
                       </div>
                       <div>
-                        <span className="opacity-50 block uppercase">Garansi Khiyar Aib</span>
-                        <strong className="text-xs text-accent">Aktif (3 Hari)</strong>
+                        <span className="opacity-50 block uppercase">Metode Pembayaran</span>
+                        <strong className="text-xs text-accent">{invoiceDetails.payment || "Lainnya"}</strong>
                       </div>
                     </div>
 
