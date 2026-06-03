@@ -32,16 +32,41 @@ export default function JualBarang() {
     const file = e.target.files[0];
     if (!file) return;
 
-    // File validation: Size limit (max 2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      alert("Ukuran file terlalu besar! Maksimal 2MB untuk optimasi database.");
-      return;
-    }
-
+    // We no longer strictly reject based on file size.
+    // Instead, we compress the image using a canvas to ensure it fits in Supabase.
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setImage(reader.result); // Base64 String
-      setImagePreview(reader.result);
+    reader.onloadend = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const MAX_WIDTH = 800; // Resize to max 800px width
+        const MAX_HEIGHT = 1000;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Compress to JPEG with 0.7 quality
+        const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.7);
+        setImage(compressedDataUrl);
+        setImagePreview(compressedDataUrl);
+      };
+      img.src = event.target.result;
     };
     reader.readAsDataURL(file);
   };
