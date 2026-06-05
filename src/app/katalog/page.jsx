@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import { useCart } from "@/context/CartContext";
@@ -81,7 +81,7 @@ export default function Katalog() {
             Katalog Vintage Syariah
           </h1>
           <p className="text-sm opacity-70 max-w-md mx-auto leading-relaxed">
-            100% Pakaian Syar'i & Suci. Transparansi cacat barang diungkapkan secara jelas demi menghindari penipuan (Gharar).
+            100% Pakaian Syar&apos;i & Suci. Transparansi cacat barang diungkapkan secara jelas demi menghindari penipuan (Gharar).
           </p>
         </div>
 
@@ -149,7 +149,7 @@ export default function Katalog() {
                       {product.defectGrade}
                     </span>
                   </div>
-                  <p className="line-clamp-1 opacity-70 italic">"{product.defectDesc}"</p>
+                  <p className="line-clamp-1 opacity-70 italic">&quot;{product.defectDesc}&quot;</p>
                 </div>
 
                 {/* Hover overlay */}
@@ -215,7 +215,7 @@ export default function Katalog() {
                   </div>
                   <div className="flex items-center gap-2 text-xs">
                     <span className="w-2.5 h-2.5 rounded-full bg-green-600"></span>
-                    <span>100% Suci (Syar'i)</span>
+                    <span>100% Suci (Syar&apos;i)</span>
                   </div>
                 </div>
               </div>
@@ -243,7 +243,7 @@ export default function Katalog() {
                         Cacat: {selectedProduct.defectGrade}
                       </span>
                     </div>
-                    <p className="opacity-80 italic leading-relaxed">"{selectedProduct.defectDesc}"</p>
+                    <p className="opacity-80 italic leading-relaxed">&quot;{selectedProduct.defectDesc}&quot;</p>
                   </div>
 
                   {/* Purification Details */}
@@ -256,7 +256,7 @@ export default function Katalog() {
                   <div className="border border-foreground/10 bg-foreground/[0.01] p-4 rounded-sm">
                     <h4 className="font-bold uppercase tracking-wider text-[10px] opacity-70 mb-1">Jenis Akad Penjualan</h4>
                     <p className="opacity-70 leading-relaxed">
-                      Menggunakan akad <strong>Bai' Al-Musawamah</strong> (jual beli suka-sama-suka dengan harga yang disepakati bersama secara sukarela tanpa membeberkan harga modal/keuntungan pokok oleh penjual).
+                      Menggunakan akad <strong>Bai&apos; Al-Musawamah</strong> (jual beli suka-sama-suka dengan harga yang disepakati bersama secara sukarela tanpa membeberkan harga modal/keuntungan pokok oleh penjual).
                     </p>
                   </div>
                 </div>

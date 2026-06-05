@@ -50,6 +50,7 @@ export default function POS() {
     e.preventDefault();
     if (items.length === 0 || !customerVerbalAgreement) return;
 
+    // eslint-disable-next-line react-hooks/purity
     const transactionId = `RLP-POS-${Date.now().toString().slice(-6)}`;
     const timestamp = new Date().toLocaleString("id-ID", {
       dateStyle: "medium",
@@ -155,7 +156,7 @@ export default function POS() {
                         onChange={(e) => setProductPurified(e.target.checked)}
                         className="accent-accent"
                       />
-                      <span>Dicuci Bersih & Suci secara Syar'i (Thaharah)</span>
+                      <span>Dicuci Bersih & Suci secara Syar&apos;i (Thaharah)</span>
                     </label>
                   </div>
 
@@ -269,7 +270,7 @@ export default function POS() {
                         className="mt-0.5 accent-accent"
                       />
                       <span className="text-[10px] text-foreground/80 leading-normal">
-                        <strong>Pernyataan Akad Penjual:</strong> Saya menyatakan bahwa pembeli telah mengetahui cacat barang dan menyepakati harga transaksi secara lisan (Akad Bai' Al-Musawamah).
+                        <strong>Pernyataan Akad Penjual:</strong> Saya menyatakan bahwa pembeli telah mengetahui cacat barang dan menyepakati harga transaksi secara lisan (Akad Bai&apos; Al-Musawamah).
                       </span>
                     </label>
                   </div>
@@ -344,7 +345,7 @@ export default function POS() {
               <div className="border-t border-dashed border-foreground/30 pt-4 space-y-2 text-center text-[9px] opacity-75 font-sans leading-normal">
                 <p className="font-bold">AKAD TRANSAKSI SAH</p>
                 <p className="italic">
-                  "Transaksi diselesaikan menggunakan Akad Bai' Al-Musawamah atas kesepakatan suka-sama-suka tanpa paksaan."
+                  &quot;Transaksi diselesaikan menggunakan Akad Bai&apos; Al-Musawamah atas kesepakatan suka-sama-suka tanpa paksaan.&quot;
                 </p>
                 <p className="text-[8px] mt-2 border border-foreground/15 p-2 rounded-sm">
                   <strong>Garansi Khiyar Aib:</strong> Pelanggan berhak mengembalikan barang cacat yang tidak diungkapkan di atas dalam waktu 3 hari sejak tanggal pembelian.

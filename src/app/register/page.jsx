@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Register() {
   const [fullName, setFullName] = useState("");
@@ -38,9 +39,9 @@ export default function Register() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4 font-sans text-foreground">
-      <a href="/" className="text-2xl font-bold tracking-widest uppercase mb-10 text-foreground hover:text-accent transition-colors">
+      <Link href="/" className="text-2xl font-bold tracking-widest uppercase mb-10 text-foreground hover:text-accent transition-colors">
         RELOOP <span className="text-accent font-serif italic">Shop.</span>
-      </a>
+      </Link>
 
       <div className="w-full max-w-md bg-foreground/[0.02] border border-foreground/10 p-8 shadow-xl relative overflow-hidden rounded-sm backdrop-blur-sm">
         <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-accent/15 rounded-full -z-10 blur-2xl"></div>
@@ -108,9 +109,9 @@ export default function Register() {
 
         <div className="mt-8 text-center text-xs opacity-70 tracking-wide">
           Sudah punya akun?{" "}
-          <a href="/login" className="font-bold text-accent hover:underline">
+          <Link href="/login" className="font-bold text-accent hover:underline">
             Masuk di sini
-          </a>
+          </Link>
         </div>
       </div>
     </div>

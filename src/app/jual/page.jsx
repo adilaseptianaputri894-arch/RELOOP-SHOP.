@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
@@ -290,7 +290,7 @@ export default function JualBarang() {
                     className="mt-1 accent-accent"
                   />
                   <span className="text-xs text-foreground/80 leading-normal">
-                    Pakaian ini sudah dicuci dan disucikan secara syar'i (mengalirkan air pembilas untuk menyucikan najis yang mungkin ada).
+                    Pakaian ini sudah dicuci dan disucikan secara syar&apos;i (mengalirkan air pembilas untuk menyucikan najis yang mungkin ada).
                   </span>
                 </label>
 

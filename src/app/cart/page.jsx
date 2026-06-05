@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { useCart } from "@/context/CartContext";
 
@@ -47,7 +48,7 @@ export default function Cart() {
     e.preventDefault();
     if (!buyerName || !akadAccepted || !isAddressComplete) return;
 
-    // Generate Invoice Details
+    // eslint-disable-next-line react-hooks/purity
     const transactionId = `RLP-TX-${Date.now().toString().slice(-6)}`;
     const timestamp = new Date().toLocaleString("id-ID", {
       dateStyle: "medium",
@@ -119,12 +120,12 @@ export default function Cart() {
             <p className="font-serif italic text-2xl mb-4">
               Keranjang Anda masih kosong
             </p>
-            <a
+            <Link
               href="/katalog"
               className="inline-block px-6 py-3 border border-foreground/20 hover:border-accent hover:text-accent transition-colors text-sm uppercase tracking-wider"
             >
               Lihat Koleksi
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="grid md:grid-cols-3 gap-8">
@@ -220,12 +221,12 @@ export default function Cart() {
                 Lanjutkan ke Akad
               </button>
 
-              <a
+              <Link
                 href="/katalog"
                 className="block text-center text-xs mt-4 opacity-50 hover:opacity-100 hover:text-accent transition-all underline"
               >
                 Lanjutkan Belanja
-              </a>
+              </Link>
             </div>
           </div>
         )}
@@ -276,7 +277,7 @@ export default function Cart() {
                           <span>{item.name} (Size {item.size})</span>
                           <span className="text-amber-800 text-[10px]">Cacat: {item.defectGrade || "Tidak Ada"}</span>
                         </div>
-                        <p className="text-foreground/60 italic mt-1 font-serif">"{item.defectDesc || "Kondisi sangat mulus, tidak ditemukan cacat fisik."}"</p>
+                        <p className="text-foreground/60 italic mt-1 font-serif">&quot;{item.defectDesc || "Kondisi sangat mulus, tidak ditemukan cacat fisik."}&quot;</p>
                       </div>
                     ))}
                   </div>
@@ -317,7 +318,7 @@ export default function Cart() {
               {checkoutStep === 2 && (
                 <form onSubmit={handleCompleteAkad} className="space-y-5">
                   <p className="text-xs opacity-75 leading-relaxed">
-                    Kami menggunakan Akad <strong>Bai' Al-Musawamah</strong> (jual beli kesepakatan harga tanpa syarat pengungkapan modal). Mohon lengkapi data Anda untuk melakukan ijab qobul secara sah.
+                    Kami menggunakan Akad <strong>Bai&apos; Al-Musawamah</strong> (jual beli kesepakatan harga tanpa syarat pengungkapan modal). Mohon lengkapi data Anda untuk melakukan ijab qobul secara sah.
                   </p>
 
                   <div className="space-y-2">
@@ -407,7 +408,7 @@ export default function Cart() {
                       Naskah Akad Ijab Qobul
                     </h4>
                     <p className="text-xs text-foreground/80 italic leading-relaxed text-center">
-                      "Dengan ini saya, {buyerName || "[Nama Pembeli]"}, menyatakan setuju membeli barang-barang thrift yang tercantum seharga Rp {subtotal.toLocaleString("id-ID")} secara tunai. Saya menerima kondisi cacat fisik yang telah diungkapkan oleh penjual, dan saya memegang Hak Khiyar Aib (hak membatalkan transaksi) apabila ditemukan cacat lain yang tersembunyi yang belum dideklarasikan sebelumnya."
+                      &quot;Dengan ini saya, {buyerName || "[Nama Pembeli]"}, menyatakan setuju membeli barang-barang thrift yang tercantum seharga Rp {subtotal.toLocaleString("id-ID")} secara tunai. Saya menerima kondisi cacat fisik yang telah diungkapkan oleh penjual, dan saya memegang Hak Khiyar Aib (hak membatalkan transaksi) apabila ditemukan cacat lain yang tersembunyi yang belum dideklarasikan sebelumnya.&quot;
                     </p>
                   </div>
 
@@ -530,7 +531,7 @@ export default function Cart() {
                       </div>
                       <div>
                         <span className="opacity-50 block uppercase">Jenis Akad</span>
-                        <strong className="text-xs">Bai' Al-Musawamah</strong>
+                        <strong className="text-xs">Bai&apos; Al-Musawamah</strong>
                       </div>
                       <div>
                         <span className="opacity-50 block uppercase">Status Transaksi</span>

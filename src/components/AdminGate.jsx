@@ -10,6 +10,7 @@ export default function AdminGate({ children }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     const authStatus = localStorage.getItem("reloop_admin_auth");
     if (authStatus === "true") {

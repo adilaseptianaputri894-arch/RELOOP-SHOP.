@@ -1,4 +1,6 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/set-state-in-effect */
 
 import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -118,6 +120,16 @@ function ChatContent() {
     }
   }, [productIdParam]);
 
+  const saveChats = (messages, accepted, price) => {
+    if (!activeProduct || !user) return;
+    const chatKey = `reloop_chat_${user.email}_${activeProduct.id}`;
+    localStorage.setItem(chatKey, JSON.stringify({
+      messages,
+      isAccepted: accepted,
+      agreedPrice: price
+    }));
+  };
+
   // Load chat messages for the active product
   useEffect(() => {
     if (!activeProduct || !user) return;
@@ -155,22 +167,13 @@ function ChatContent() {
       setAgreedPrice(null);
       saveChats(initialMsgs, false, null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeProduct, user]);
 
   // Scroll to bottom when messages update
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages, typing]);
-
-  const saveChats = (messages, accepted, price) => {
-    if (!activeProduct || !user) return;
-    const chatKey = `reloop_chat_${user.email}_${activeProduct.id}`;
-    localStorage.setItem(chatKey, JSON.stringify({
-      messages,
-      isAccepted: accepted,
-      agreedPrice: price
-    }));
-  };
 
   const handleSendOffer = (e) => {
     e.preventDefault();
