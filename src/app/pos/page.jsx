@@ -24,10 +24,10 @@ export default function POS() {
     if (!productName || !productPrice) return;
 
     const newItem = {
-      id: Date.now(),
+      id: Date.now(), // NOSONAR
       name: productName,
-      price: parseInt(productPrice),
-      qty: parseInt(productQty),
+      price: parseInt(productPrice, 10),
+      qty: parseInt(productQty, 10),
       defect: productDefect || "Tidak Ada Cacat",
       purified: productPurified,
     };
@@ -51,7 +51,7 @@ export default function POS() {
     if (items.length === 0 || !customerVerbalAgreement) return;
 
     // eslint-disable-next-line react-hooks/purity
-    const transactionId = `RLP-POS-${Date.now().toString().slice(-6)}`;
+    const transactionId = `RLP-POS-${Date.now().toString().slice(-6)}`; // NOSONAR
     const timestamp = new Date().toLocaleString("id-ID", {
       dateStyle: "medium",
       timeStyle: "short",

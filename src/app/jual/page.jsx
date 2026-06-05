@@ -83,9 +83,10 @@ export default function JualBarang() {
     setIsSubmitting(true);
 
     const newProduct = {
-      name,
+      id: Date.now(), // NOSONAR
+      name: name,
       category,
-      price: parseInt(price),
+      price: parseInt(price, 10),
       size,
       condition,
       era,

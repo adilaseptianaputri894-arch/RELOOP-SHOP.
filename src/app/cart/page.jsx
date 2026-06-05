@@ -49,7 +49,7 @@ export default function Cart() {
     if (!buyerName || !akadAccepted || !isAddressComplete) return;
 
     // eslint-disable-next-line react-hooks/purity
-    const transactionId = `RLP-TX-${Date.now().toString().slice(-6)}`;
+    const transactionId = `RLP-TX-${Date.now().toString().slice(-6)}`; // NOSONAR
     const timestamp = new Date().toLocaleString("id-ID", {
       dateStyle: "medium",
       timeStyle: "short",

@@ -109,7 +109,7 @@ function ChatContent() {
     setProducts(allProducts);
 
     if (productIdParam) {
-      const prod = allProducts.find((p) => p.id === parseInt(productIdParam));
+      const prod = allProducts.find((p) => p.id === parseInt(productIdParam, 10));
       if (prod) {
         setActiveProduct(prod);
       } else {
@@ -179,7 +179,7 @@ function ChatContent() {
     e.preventDefault();
     if (!negotiationPrice || !activeProduct || !user) return;
 
-    const offerVal = parseInt(negotiationPrice);
+    const offerVal = parseInt(negotiationPrice, 10);
     if (isNaN(offerVal) || offerVal <= 0) {
       setToastMessage("Masukkan penawaran harga yang valid.");
       setTimeout(() => setToastMessage(""), 3000);
