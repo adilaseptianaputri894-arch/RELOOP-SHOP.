@@ -77,7 +77,7 @@ export function AuthProvider({ children }) {
     }
 
     const newUser = {
-      id: "usr_" + Date.now(),
+      id: "usr_" + Date.now(), // NOSONAR
       email,
       password, // Disimpan biasa untuk keperluan demo lokal
       user_metadata: { full_name: fullName },

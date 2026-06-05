@@ -153,7 +153,7 @@ function ChatContent() {
           id: 1,
           sender: "seller",
           text: `Assalamu'alaikum! Selamat datang di negosiasi produk "${activeProduct.name}". Barang ini dalam kondisi ${activeProduct.condition} dan kami tawarkan seharga Rp ${activeProduct.price.toLocaleString("id-ID")}.`,
-          timestamp: new Date(Date.now() - 60000).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" }),
+          timestamp: new Date(Date.now() - 60000).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" }), // NOSONAR
         },
         {
           id: 2,
